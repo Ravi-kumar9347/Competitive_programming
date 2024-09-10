@@ -1,0 +1,24 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+
+public class GridReader {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String s = reader.readLine();
+        HashSet<Character> set = new HashSet<>();
+        set.add('a'); set.add('e'); set.add('i');
+        set.add('o'); set.add('u'); set.add('y');
+        
+        StringBuilder res = new StringBuilder();
+        for(int i = 0; i < s.length(); i++){
+           char c = Character.toLowerCase(s.charAt(i));
+           if(set.contains(c)) continue;
+           res.append('.');
+           res.append(c);
+        }
+        
+        System.out.println(res.toString());
+    }
+}
