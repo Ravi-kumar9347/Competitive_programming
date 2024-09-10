@@ -1,0 +1,45 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class GridReader {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(reader.readLine());
+        
+        for(int k = 0; k < t; k++){
+           String[] gridSize = reader.readLine().split(" ");
+           int rows = Integer.parseInt(gridSize[0]);
+           int cols = Integer.parseInt(gridSize[1]);
+   
+           char[][] grid = new char[rows][cols];
+   
+           for (int i = 0; i < rows; i++) {
+               String line = reader.readLine();
+               for (int j = 0; j < cols; j++) {
+                   grid[i][j] = line.charAt(j);
+               }
+           }
+           
+           int ans = fun(rows, cols, grid);
+           System.out.println(ans);
+        }
+    }
+    
+    private static int fun(int rows, int cols, char[][] grid){
+       int cnt = 0;
+       for(int j = 0; j < cols-1; j++){
+          if(grid[rows-1][j] != 'R'){
+             cnt++;
+          }
+       }
+       
+       for(int i = 0; i < rows-1; i++){
+          if(grid[i][cols-1] != 'D'){
+             cnt++;
+          }
+       }
+       
+       return cnt;
+    }
+}
