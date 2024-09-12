@@ -1,0 +1,34 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        // Reading input values
+        int n = Integer.parseInt(br.readLine());
+        Long[] a = new Long[n];
+        
+        // Reading the array of long integers
+        String[] input = br.readLine().split(" ");
+        for (int i = 0; i < n; i++) {
+            a[i] = Long.parseLong(input[i]);
+        }
+
+        // Logic to calculate x
+        long x = a[n - 1];
+        long m = x;
+        for (int i = n - 2; i >= 0; i--) {
+            if (m > 0) {
+                x += Math.min(m - 1, a[i]);
+                m = Math.min(m - 1, a[i]);
+            } else {
+                break;
+            }
+        }
+
+        // Output the result
+        System.out.println(x);
+    }
+}
