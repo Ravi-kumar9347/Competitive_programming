@@ -1,0 +1,28 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class RoomsAndStaircases {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(reader.readLine()); // Number of test cases
+        
+        while (t-- > 0) {
+            int n = Integer.parseInt(reader.readLine()); // Number of rooms on each floor
+            String staircases = reader.readLine(); // String representation of staircases
+            
+            // Check if there are any staircases
+            if (!staircases.contains("1")) {
+                System.out.println(n); // No staircases, can only visit all rooms on one floor
+            } else {
+                // Find the leftmost and rightmost staircase (i.e., index of '1')
+                int leftmost = staircases.indexOf('1');
+                int rightmost = staircases.lastIndexOf('1');
+                
+                // Maximum number of rooms Nikolay can visit
+                int maxRooms = 2 * Math.max(rightmost + 1, n - leftmost);
+                System.out.println(maxRooms);
+            }
+        }
+    }
+}
