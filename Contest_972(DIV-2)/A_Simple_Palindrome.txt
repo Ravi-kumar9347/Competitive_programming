@@ -1,0 +1,40 @@
+import java.util.*;
+import java.io.*;
+
+public class Solution {
+
+    // Helper function to generate the string based on the logic
+    public static String generateString(long n) {
+        final String t = "aeiou";  // constant string of vowels
+        long c = n / 5;  // quotient when n is divided by 5
+        long r = n % 5;  // remainder when n is divided by 5
+        StringBuilder s = new StringBuilder();  // StringBuilder for efficient string manipulation
+
+        // Loop to generate the string by appending characters based on quotient and remainder
+        for (int j = 0; j < 5; j++) {
+            // Append the character 'c' times
+            for (long k = 0; k < c; k++) {
+                s.append(t.charAt(j));
+            }
+            // Append one more character if 'r' is positive
+            if (j < r) {
+                s.append(t.charAt(j));
+            }
+        }
+        return s.toString();  // Return the generated string
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        // Read the number of test cases
+        int T = Integer.parseInt(reader.readLine());
+
+        // Loop through each test case
+        while (T-- > 0) {
+            long n = Long.parseLong(reader.readLine());  // Read input 'n'
+            // Generate and print the string for the current test case
+            System.out.println(generateString(n));
+        }
+    }
+}

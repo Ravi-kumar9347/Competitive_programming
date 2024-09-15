@@ -1,0 +1,68 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Arrays;
+
+public class Buttons {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());  // Number of test cases
+
+        for (int i = 0; i < t; i++) {
+            String[] line = br.readLine().split(" ");
+            int n = Integer.parseInt(line[0]);  // Total number of buttons
+            int m = Integer.parseInt(line[1]);  // Number of teacher-pressed buttons
+            int q = Integer.parseInt(line[2]);  // Number of student queries
+
+            // Reading teacher's pressed button sequence
+            String[] teacher = br.readLine().split(" ");
+            int[] arr = new int[m];
+            for (int k = 0; k < m; k++) {
+                arr[k] = Integer.parseInt(teacher[k]);
+            }
+            Arrays.sort(arr);  // Sort teacher pressed buttons
+
+            // Reading student queries
+            String[] que = br.readLine().split(" ");
+            for (int x = 0; x < q; x++) {
+                int y = Integer.parseInt(que[x]);  // Student pressed button
+                System.out.println(findNearestButton(y, arr, m, n));
+            }
+        }
+    }
+
+    // Function to find the nearest button press
+    static int findNearestButton(int num, int[] arr, int len, int n) {
+        int low = 0, high = len - 1;
+
+        // Binary search
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (arr[mid] == num) {
+                if (mid == 0) {
+                    return arr[mid] - 1;  // Leftmost case
+                } else if (mid == len - 1) {
+                    return n - arr[mid];  // Rightmost case
+                } else {
+                    // Case between two buttons
+                    return Math.max(Math.abs(arr[mid] - arr[mid - 1]) / 2,
+                                    Math.abs(arr[mid] - arr[mid + 1]) / 2);
+                }
+            }
+
+            // Adjusting the search range
+            if (arr[mid] < num) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        // Handling cases where the student pressed button is not in teacher's sequence
+        if (low == len) return n - arr[len - 1];  // If num is greater than all teacher-pressed buttons
+        if (high == -1) return arr[0] - 1;  // If num is less than all teacher-pressed buttons
+
+        // Middle case
+        return Math.abs(arr[low] - arr[high]) / 2;
+    }
+}
