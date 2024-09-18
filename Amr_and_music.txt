@@ -1,0 +1,51 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        // Reading n and k
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken()); // number of instruments
+        int k = Integer.parseInt(st.nextToken()); // number of available days
+        
+        // Reading the time required for each instrument
+        st = new StringTokenizer(br.readLine());
+        int[] a = new int[n]; // time required for each instrument
+        int[][] indexedArray = new int[n][2]; // to store time and original index
+        
+        for (int i = 0; i < n; i++) {
+            a[i] = Integer.parseInt(st.nextToken());
+            indexedArray[i][0] = a[i]; // store time
+            indexedArray[i][1] = i + 1; // store original index (1-based)
+        }
+        
+        // Sort the instruments based on time required in ascending order
+        Arrays.sort(indexedArray, (x, y) -> Integer.compare(x[0], y[0]));
+        
+        ArrayList<Integer> instrumentsLearned = new ArrayList<>();
+        int totalDaysUsed = 0;
+        
+        // Try to learn as many instruments as possible
+        for (int i = 0; i < n; i++) {
+            if (totalDaysUsed + indexedArray[i][0] <= k) {
+                totalDaysUsed += indexedArray[i][0];
+                instrumentsLearned.add(indexedArray[i][1]); // add original index
+            } else {
+                break; // Stop if adding another instrument exceeds available days
+            }
+        }
+        
+        // Output the result
+        System.out.println(instrumentsLearned.size());
+        for (int index : instrumentsLearned) {
+            System.out.print(index + " ");
+        }
+        System.out.println();
+    }
+}
