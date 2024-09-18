@@ -1,0 +1,76 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class ORInMatrixJava {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        // Reading dimensions n and m
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        
+        int[][] a = new int[n][m];
+        int[][] b = new int[n][m];
+        
+        // Reading matrix b
+        for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < m; j++) {
+                b[i][j] = Integer.parseInt(st.nextToken());
+                a[i][j] = 1; // Initially, assume all elements in a are 1
+            }
+        }
+        
+        // Setting rows and columns of a to 0 if b[i][j] is 0
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (b[i][j] == 0) {
+                    // Set row i to 0
+                    for (int k = 0; k < m; k++) {
+                        a[i][k] = 0;
+                    }
+                    // Set column j to 0
+                    for (int k = 0; k < n; k++) {
+                        a[k][j] = 0;
+                    }
+                }
+            }
+        }
+        
+        // Rechecking if we can regenerate matrix b from matrix a
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                int y = 0;
+                
+                // Checking row i
+                for (int k = 0; k < m; k++) {
+                    y |= a[i][k];
+                }
+                
+                // Checking column j
+                for (int k = 0; k < n; k++) {
+                    y |= a[k][j];
+                }
+                
+                // If the calculated value doesn't match b[i][j], print NO and exit
+                if (y != b[i][j]) {
+                    System.out.println("NO");
+                    return;
+                }
+            }
+        }
+        
+        // If everything is valid, print YES and the matrix a
+        System.out.println("YES");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.print(a[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
