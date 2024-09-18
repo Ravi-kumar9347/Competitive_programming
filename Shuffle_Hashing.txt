@@ -1,0 +1,46 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Arrays;
+
+public class Buttons
+{
+	public static void main(String[] args) throws IOException
+	{
+	     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        
+        for(int i = 0; i < t; i++){
+           String s1 = br.readLine(); 
+           String s2 = br.readLine(); 
+           
+           int n1 = s1.length();
+           int n2 = s2.length();
+           if(n1 > n2){
+              System.out.println("NO");
+              continue;
+           }
+            
+            int n = n2-n1;
+          if(solve(s1,s2, n)){
+              System.out.println("YES");
+          }else{
+              System.out.println("NO");
+          }
+        }
+	}
+	
+	static boolean solve(String s1, String s2, int n){
+        char[] ch1 = s1.toCharArray();
+        Arrays.sort(ch1);
+        for(int i = 0; i<=n; i++){
+            String sub2 = s2.substring(i,s1.length()+i);
+            char[] ch2 = sub2.toCharArray();
+            Arrays.sort(ch2);
+            if(Arrays.equals(ch1,ch2)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
