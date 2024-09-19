@@ -1,0 +1,22 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        while(t > 0){
+            String[] values = br.readLine().split(" ");
+            long a = Long.parseLong(values[0]);
+            long b = Long.parseLong(values[1]);
+            
+            if(2 * a <= b){
+               System.out.println(a + " " + 2*a);
+            } else {
+               System.out.println(-1 + " " + -1);
+            }
+            t--;
+        }
+    }
+}
