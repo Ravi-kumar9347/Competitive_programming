@@ -1,0 +1,39 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class ZhanBlender {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(reader.readLine()); // Number of test cases
+        StringBuilder output = new StringBuilder();
+        
+        while (t-- > 0) {
+            // Read number of fruits
+            long n = Long.parseLong(reader.readLine());
+            
+            // Read x and y values
+            StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
+            long x = Long.parseLong(tokenizer.nextToken());
+            long y = Long.parseLong(tokenizer.nextToken());
+
+            // Calculate minimum time required
+            if (n == 0) {
+                output.append(0).append("\n");
+                continue;
+            }
+            
+            // Formula to calculate how many rounds we need to blend
+            // Since we can put y fruits into the blender per second, and we can blend min(x, c) per second,
+            // in each round we effectively process `min(x, y)` fruits.
+            // Therefore, the time required is simply the ceiling of n divided by min(x, y).
+            long minXY = Math.min(x, y);
+            long result = (n + minXY - 1) / minXY;  // Ceiling of n / minXY
+            
+            output.append(result).append("\n");
+        }
+        
+        System.out.print(output);
+    }
+}
