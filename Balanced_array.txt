@@ -1,0 +1,35 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class ProfitableInterestRate {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(reader.readLine());
+        
+        for (int i = 0; i < t; i++) {
+            int n = Integer.parseInt(reader.readLine()); 
+
+            if ((n/2) % 2 == 1) {
+                System.out.println("NO");
+            } else {
+                System.out.println("YES");
+                int nums = n/2;
+                int k = 1, cur = 2;
+                for( ; k <= nums; k++){
+                   System.out.print(cur + " ");
+                   cur += 2;
+                }
+                
+                k = 1;
+                cur = 1;
+                for( ; k < nums; k++){
+                   System.out.print(cur + " ");
+                   cur += 2;
+                }
+                
+                System.out.println((nums-1) + (2 * nums));
+            }
+        }
+    }
+}
