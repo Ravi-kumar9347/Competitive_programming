@@ -1,0 +1,37 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        // Use BufferedReader for fast input
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        // Use StringBuilder for fast output
+        StringBuilder sb = new StringBuilder();
+        
+        // Read the number of test cases
+        int t = Integer.parseInt(br.readLine());
+        
+        // Process each test case
+        for (int i = 0; i < t; i++) {
+            // Read the input values a and b
+            String[] input = br.readLine().split(" ");
+            int a = Integer.parseInt(input[0]);
+            int b = Integer.parseInt(input[1]);
+            
+            // Calculate the absolute difference
+            int diff = Math.abs(b - a);
+            
+            // Calculate the minimum number of moves
+            int moves = diff / 10;
+            if (diff % 10 != 0) {
+                moves += 1;
+            }
+            
+            // Append the result to the output
+            sb.append(moves).append("\n");
+        }
+        
+        // Output all results at once
+        System.out.print(sb.toString());
+    }
+}
