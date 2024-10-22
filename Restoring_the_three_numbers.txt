@@ -1,0 +1,27 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        // Use BufferedReader for fast input
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        // Read input and split it into an array of integers
+        String[] input = br.readLine().split(" ");
+        int[] nums = new int[4];
+        for (int i = 0; i < 4; i++) {
+            nums[i] = Integer.parseInt(input[i]);
+        }
+        
+        // Sort the array to easily access the largest number (a + b + c)
+        Arrays.sort(nums);
+        
+        // The largest number is a + b + c, and the others are a + b, a + c, b + c
+        int a = nums[3] - nums[2];
+        int b = nums[3] - nums[1];
+        int c = nums[3] - nums[0];
+        
+        // Output the result
+        System.out.println(a + " " + b + " " + c);
+    }
+}
